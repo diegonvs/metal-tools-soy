@@ -47,9 +47,7 @@ describe('Compile Soy Pipeline', function() {
 		});
 	});
 
-	it('should compile soy files with CRLF line ending to js without errors', function(
-		done
-	) {
+	it('should compile soy files with CRLF line ending to js without errors', function(done) {
 		const stream = vfs.src('test/fixtures/soy/crlf.soy').pipe(compileSoy());
 		stream.on('data', function(file) {
 			expect(file.relative).toBe('crlf.soy.js');
@@ -72,9 +70,7 @@ describe('Compile Soy Pipeline', function() {
 		});
 	});
 
-	it('should not throw error if no files are provided for compilation', function(
-		done
-	) {
+	it('should not throw error if no files are provided for compilation', function(done) {
 		const stream = vfs
 			.src('test/fixtures/soy/simple.soy')
 			.pipe(ignore.exclude('*.soy'))
@@ -84,9 +80,7 @@ describe('Compile Soy Pipeline', function() {
 		});
 	});
 
-	it('should set the "params" variable for each template, with a list of its param names', function(
-		done
-	) {
+	it('should set the "params" variable for each template, with a list of its param names', function(done) {
 		const stream = vfs
 			.src('test/fixtures/soy/simple.soy')
 			.pipe(compileSoy());
@@ -108,9 +102,7 @@ describe('Compile Soy Pipeline', function() {
 		});
 	});
 
-	it('should set the "types" variable for each template, with a list of its param types', function(
-		done
-	) {
+	it('should set the "types" variable for each template, with a list of its param types', function(done) {
 		const stream = vfs
 			.src('test/fixtures/soy/paramTypes.soy')
 			.pipe(compileSoy());
@@ -126,9 +118,7 @@ describe('Compile Soy Pipeline', function() {
 		});
 	});
 
-	it('should add lines to generated soy js file that import some metal ES6 modules', function(
-		done
-	) {
+	it('should add lines to generated soy js file that import some metal ES6 modules', function(done) {
 		const stream = vfs
 			.src('test/fixtures/soy/simple.soy')
 			.pipe(compileSoy());
@@ -176,9 +166,7 @@ describe('Compile Soy Pipeline', function() {
 		});
 	});
 
-	it('should automatically generate and export component class using SoyRenderer', function(
-		done
-	) {
+	it('should automatically generate and export component class using SoyRenderer', function(done) {
 		const stream = vfs
 			.src('test/fixtures/soy/simple.soy')
 			.pipe(compileSoy());
@@ -202,9 +190,7 @@ describe('Compile Soy Pipeline', function() {
 		});
 	});
 
-	it('should build generated class name from the entire namespace', function(
-		done
-	) {
+	it('should build generated class name from the entire namespace', function(done) {
 		const stream = vfs
 			.src('test/fixtures/soy/CompoundName.soy')
 			.pipe(compileSoy());
@@ -267,9 +253,7 @@ describe('Compile Soy Pipeline', function() {
 		});
 	});
 
-	it('should not generate component class if no render template is declared', function(
-		done
-	) {
+	it('should not generate component class if no render template is declared', function(done) {
 		const stream = vfs
 			.src('test/fixtures/soy/noRender.soy')
 			.pipe(compileSoy());
@@ -284,9 +268,7 @@ describe('Compile Soy Pipeline', function() {
 		});
 	});
 
-	it('should not generate imports and component class if skipMetalGeneration is true', function(
-		done
-	) {
+	it('should not generate imports and component class if skipMetalGeneration is true', function(done) {
 		const stream = vfs.src('test/fixtures/soy/simple.soy').pipe(
 			compileSoy({
 				skipMetalGeneration: true
@@ -303,9 +285,7 @@ describe('Compile Soy Pipeline', function() {
 		});
 	});
 
-	it('should add to the end of the generated file the path to the source map', function(
-		done
-	) {
+	it('should add to the end of the generated file the path to the source map', function(done) {
 		const stream = vfs.src('test/fixtures/soy/simple.soy').pipe(
 			compileSoy({
 				sourceMaps: true
@@ -323,9 +303,7 @@ describe('Compile Soy Pipeline', function() {
 		});
 	});
 
-	it('should replace goog.require calls to other templates with Soy.getTemplate calls', function(
-		done
-	) {
+	it('should replace goog.require calls to other templates with Soy.getTemplate calls', function(done) {
 		const stream = vfs
 			.src([
 				'test/fixtures/soy/external.soy',
@@ -364,9 +342,7 @@ describe('Compile Soy Pipeline', function() {
 		});
 	});
 
-	it('should not replace google external messages by default', function(
-		done
-	) {
+	it('should not replace google external messages by default', function(done) {
 		const stream = vfs
 			.src('test/fixtures/soy/messages.soy')
 			.pipe(compileSoy());
@@ -383,9 +359,7 @@ describe('Compile Soy Pipeline', function() {
 		});
 	});
 
-	it('should replace external messages from goog.getMsg calls if an externalMsgFormat has been specified', function(
-		done
-	) {
+	it('should replace external messages from goog.getMsg calls if an externalMsgFormat has been specified', function(done) {
 		const externalMsgFormat = `I18n.translate('$2')`;
 
 		const stream = vfs.src('test/fixtures/soy/messages.soy').pipe(
@@ -419,9 +393,7 @@ describe('Compile Soy Pipeline', function() {
 		});
 	});
 
-	it('should emit error and end stream when soy parsing error is thrown', function(
-		done
-	) {
+	it('should emit error and end stream when soy parsing error is thrown', function(done) {
 		const stream = vfs
 			.src('test/fixtures/soy/parseError.soy')
 			.pipe(compileSoy());
@@ -435,9 +407,7 @@ describe('Compile Soy Pipeline', function() {
 		});
 	});
 
-	it('should emit error and end stream when the soy jar compiler throws an error', function(
-		done
-	) {
+	it('should emit error and end stream when the soy jar compiler throws an error', function(done) {
 		const stream = vfs
 			.src('test/fixtures/soy/compileError.soy')
 			.pipe(compileSoy());
@@ -451,9 +421,7 @@ describe('Compile Soy Pipeline', function() {
 		});
 	});
 
-	it('should dedup soy deps when a relative path and absolute path point to the same soy file', function(
-		done
-	) {
+	it('should dedup soy deps when a relative path and absolute path point to the same soy file', function(done) {
 		const soyDepPath = 'test/fixtures/soy/simple.soy';
 
 		const stream = vfs.src('test/fixtures/soy/external.soy').pipe(
@@ -496,9 +464,7 @@ describe('Compile Soy Pipeline', function() {
 			childProcess.spawn.mockRestore();
 		});
 
-		it('should show better error message when the soy jar compiler throws an error due to java version', function(
-			done
-		) {
+		it('should show better error message when the soy jar compiler throws an error due to java version', function(done) {
 			const stream = vfs
 				.src('test/fixtures/soy/simple.soy')
 				.pipe(compileSoy());
